@@ -7,7 +7,9 @@
       <button v-show="searchInput !== ''" class="button" @click="clearSearch">Clear Search</button>
     </div>
 
-    <div class="container movies">
+    <Loading v-if="$fetchState.pending" />
+
+    <div v-else class="container movies">
       <div  v-if="searchInput !== ''" id="movie-grid" class="movies-grid">
         <div v-for="(movie, index) in searchedMovies" :key="index" class="movie">
           <div class="movie-img">
@@ -79,10 +81,11 @@
 import Vue from 'vue'
 import axios from 'axios'
 import Hero from '~/components/Hero/Hero.vue'
+import Loading from '~/components/Loading/Loading.vue'
 
 export default Vue.extend({
   name: "IndexPage",
-  components: { Hero },
+  components: { Hero, Loading },
 
   data() {
     return {
